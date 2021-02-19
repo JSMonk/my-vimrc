@@ -6,58 +6,46 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'isRuslan/vim-es6'
 Plug 'mattn/emmet-vim'
-Plug 'valloric/youcompleteme'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kien/ctrlp.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'posva/vim-vue'
-Plug 'elmcast/elm-vim'
-Plug 'raichoo/purescript-vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'elixir-lang/vim-elixir'
-Plug 'eagletmt/neco-ghc'
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'fatih/vim-go'
 Plug 'alx741/vim-hindent'
 Plug 'w0rp/ale'
-Plug 'reasonml-editor/vim-reason'
-Plug 'fsharp/vim-fsharp'
-Plug 'kchmck/vim-coffee-script'
 Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'udalov/kotlin-vim'
+Plug 'vim-crystal/vim-crystal'
 
 "Color themes
-Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
-Plug 'yorickpeterse/happy_hacking.vim'
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'sonph/onehalf'
 
 call plug#end()
 
 set autoread
-set termguicolors
 syntax enable
 set cursorline
 set t_Co=256
 set relativenumber
-set background=dark
-colorscheme onehalfdark
-let g:airline_theme = 'onehalfdark'
-let g:deoplete#enable_at_startup = 1
+set number
 set tabstop=2
-set softtabstop=2
 set shiftwidth=2
 set expandtab
 set smartindent
-set copyindent 
-set guifont=Fira\ Code:h12
+set background=dark
+set termguicolors
+colorscheme onehalfdark
+let g:airline_theme = 'onehalfdark'
+let g:deoplete#enable_at_startup = 1
+set guifont=Fira\ Code:h18
 
 set hlsearch
 set incsearch
-set ignorecase 
+set ignorecase
 set smartcase
 
 let g:ctrlp_working_path_mode = 'ar'
@@ -74,6 +62,26 @@ map <C-u> :call TabMove('u')<CR>
 map <C-i> :call TabMove('i')<CR>
 noremap ˚ :call feedkeys( line('.')==1 ? '' : 'ddkP' )<CR>
 noremap ∆ ddp
+
+"coc
+let g:coc_global_extensions = [ 'coc-tsserver' ]
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 function! TabMove(key)
   let t:curtab = tabpagenr()
@@ -100,11 +108,3 @@ function! WinMove(key)
     exec "wincmd ".a:key
   endif
 endfunction
-
-"go
-let g:go_fmt_command = "gofmt"
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
