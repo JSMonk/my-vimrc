@@ -2,27 +2,22 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'bling/vim-airline'
-Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'isRuslan/vim-es6'
-Plug 'mattn/emmet-vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'kien/ctrlp.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
 Plug 'easymotion/vim-easymotion'
-Plug 'posva/vim-vue'
 Plug 'alx741/vim-hindent'
 Plug 'w0rp/ale'
 Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'udalov/kotlin-vim'
 Plug 'vim-crystal/vim-crystal'
 
 "Color themes
-Plug 'rakr/vim-one'
-Plug 'sonph/onehalf'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
@@ -38,8 +33,8 @@ set expandtab
 set smartindent
 set background=dark
 set termguicolors
-colorscheme onehalfdark
-let g:airline_theme = 'onehalfdark'
+colorscheme nord
+let g:airline_theme = 'nord'
 let g:deoplete#enable_at_startup = 1
 set guifont=Fira\ Code:h18
 
@@ -47,8 +42,6 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-
-let g:ctrlp_working_path_mode = 'ar'
 
 "mappings
 map <C-d> :NERDTreeToggle<CR>
