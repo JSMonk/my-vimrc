@@ -2,23 +2,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'bling/vim-airline'
-Plug 'pangloss/vim-javascript'
-Plug 'isRuslan/vim-es6'
 Plug 'jiangmiao/auto-pairs'
-Plug 'leafgarland/typescript-vim'
-Plug 'ianks/vim-tsx'
-Plug 'easymotion/vim-easymotion'
-Plug 'alx741/vim-hindent'
-Plug 'w0rp/ale'
-Plug 'mxw/vim-jsx'
+Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-crystal/vim-crystal'
+Plug 'tomasiser/vim-code-dark'
 
 "Color themes
-Plug 'arcticicestudio/nord-vim'
-
 call plug#end()
 
 set autoread
@@ -33,8 +24,8 @@ set expandtab
 set smartindent
 set background=dark
 set termguicolors
-colorscheme nord
-let g:airline_theme = 'nord'
+colorscheme codedark
+let g:airline_theme = 'codedark'
 let g:deoplete#enable_at_startup = 1
 set guifont=Fira\ Code:h18
 
@@ -42,6 +33,8 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+let g:ctrlp_working_path_mode = 'ar'
 
 "mappings
 map <C-d> :NERDTreeToggle<CR>
@@ -51,14 +44,25 @@ map <C-k> :call WinMove('k')<CR>
 map <C-l> :call WinMove('l')<CR>
 map <C-n> :tabnew<CR>
 map <C-w> :tabclose<CR>
-map <C-u> :call TabMove('u')<CR>
-map <C-i> :call TabMove('i')<CR>
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 noremap ˚ :call feedkeys( line('.')==1 ? '' : 'ddkP' )<CR>
 noremap ∆ ddp
 
 "coc
 let g:coc_global_extensions = [ 'coc-tsserver' ]
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+nnoremap <expr><C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <expr><C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <expr><C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<Right>"
+inoremap <expr><C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<Left>"
+
+" CoC jump next error
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -75,6 +79,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Terminal
+tnoremap <Esc> <C-\><C-n>
 
 function! TabMove(key)
   let t:curtab = tabpagenr()
